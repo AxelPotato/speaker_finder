@@ -1,3 +1,5 @@
 pydub
 resemblyzer
 static-ffmpeg
+coloredlogs
+scipy
