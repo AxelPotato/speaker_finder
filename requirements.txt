@@ -1,0 +1,3 @@
+pydub
+resemblyzer
+static-ffmpeg
