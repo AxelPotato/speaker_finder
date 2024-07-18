@@ -1,5 +1,4 @@
 import os
-import shutil
 import argparse
 import logging
 import coloredlogs
@@ -26,7 +25,7 @@ def load_wav(file_path):
     wav = preprocess_wav(file_path)
     return wav, temp_wav_file
 
-def move_and_copy_files(reference_file, target_folder, new_folder, similarity_threshold=0.88):
+def process_files(reference_file, target_folder, new_folder, similarity_threshold=0.88):
     # Load the reference audio file
     logger.info(f"Loading reference audio file: {reference_file}")
     reference_wav, _ = load_wav(reference_file)
@@ -39,8 +38,7 @@ def move_and_copy_files(reference_file, target_folder, new_folder, similarity_th
     logger.info("Embedding the reference audio")
     reference_embed = encoder.embed_utterance(reference_wav)
 
-    # Ensure the destination folders exist
-    Path(destination_folder).mkdir(parents=True, exist_ok=True)
+    # Ensure the new folder exists
     Path(new_folder).mkdir(parents=True, exist_ok=True)
 
     # Process each file in the target folder recursively
@@ -88,5 +86,5 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     logger.info("Starting the speaker verification process")
-    move_and_copy_files(args.ref, args.target, args.new)
+    process_files(args.ref, args.target, args.new)
     logger.info("Speaker verification process completed")
